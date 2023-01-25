@@ -13,7 +13,7 @@ object AddressDB {
                 it[this.addressId] = address.addressId
                 it[this.personId] = address.personId
                 it[this.addressType] = address.addressType
-                it[this.addressDetail] = address.addressLine
+                it[this.addressLine] = address.addressLine
             }
         }
         return address

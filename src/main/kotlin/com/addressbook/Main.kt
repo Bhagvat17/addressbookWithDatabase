@@ -1,11 +1,9 @@
 package com.addressbook
 
-import AddAddressCommand
-import AddPersonCommand
-import AddPhoneNumberCommand
-import PersonDB
-import UpdatePersonCommand
+import com.addressbook.commands.*
 import com.addressbook.storages.AddressDB
+import com.addressbook.storages.EmailDB
+import com.addressbook.storages.PersonDB
 import com.addressbook.storages.PhoneNumberDB
 import com.addressbook.tables.Addresses
 import com.addressbook.tables.Emails
@@ -32,8 +30,9 @@ fun main(args: Array<String>) {
     val bhagvat = AddPersonCommand(PersonDB, AddPersonRequest("Bhagvatsinh","jadeja")).execute()
     val parth = AddPersonCommand(PersonDB, AddPersonRequest("Parth","Raval")).execute()
     val hamza = AddPersonCommand(PersonDB, AddPersonRequest("Hamza","Malik")).execute()
-    AddAddressCommand(AddressDB, AddAddressRequest(bhagvat.personId,AddressType.Office,"Gondal")).execute()
+    AddAddressCommand(AddressDB, AddAddressRequest(bhagvat.personId,AddressType.Office,"Baroda")).execute()
     AddPhoneNumberCommand(PhoneNumberDB, AddPhoneNumberRequest(bhagvat.personId,PhoneNumberType.Home,"2929329392")).execute()
+    AddEmailCommand(EmailDB, AddEmailRequest(bhagvat.personId,EmailType.Home,"bb@gl.com")).execute()
     UpdatePersonCommand(PersonDB,UpdatePersonRequest(parth.personId,"Paaarth","Ravel")).execute()
 }
 

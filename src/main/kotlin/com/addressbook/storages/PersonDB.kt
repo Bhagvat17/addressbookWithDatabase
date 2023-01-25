@@ -1,6 +1,7 @@
+package com.addressbook.storages
+
 import com.addressbook.tables.Persons
 import com.example.addressbook.Person
-import com.example.addressbook.PersonId
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update

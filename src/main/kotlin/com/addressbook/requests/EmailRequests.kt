@@ -8,8 +8,8 @@ enum class EmailType {
     Office
 }
 
-data class EmailRequest(
+data class AddEmailRequest(
     val personId: PersonId,
     val type: EmailType,
-    val emailDetail: String,
+    val emailAddress: String,
     )

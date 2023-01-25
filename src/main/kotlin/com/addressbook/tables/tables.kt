@@ -3,7 +3,6 @@ package com.addressbook.tables
 import com.example.addressbook.requests.AddressType
 import com.example.addressbook.requests.EmailType
 import com.example.addressbook.requests.PhoneNumberType
-import org.jetbrains.exposed.sql.ForeignKeyConstraint
 import org.jetbrains.exposed.sql.Table
 
 object Persons : Table() {
@@ -27,7 +26,7 @@ object Emails : Table() {
     val emailId = uuid("email_id").autoGenerate()
     val personId = (uuid("person_id") references Persons.personId).index()
     val emailType = enumerationByName<EmailType>("type",10)
-    val email = varchar("email", length = 100)
+    val emailAddress = varchar("email_address", length = 100)
 
     override val primaryKey = PrimaryKey(Emails.emailId, name = "PK_Email_ID")
 }
@@ -36,7 +35,7 @@ object Addresses : Table() {
     val addressId = uuid("address_id").autoGenerate()
     val personId = (uuid("person_id") references Persons.personId).index()
     val addressType =   enumerationByName<AddressType>("type",10)
-    val addressDetail = varchar("address_detail", length = 100)
+    val addressLine = varchar("address_detail", length = 100)
 
 
     override val primaryKey = PrimaryKey(Addresses.addressId, name = "PK_Address_ID")

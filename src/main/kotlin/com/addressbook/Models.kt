@@ -1,6 +1,7 @@
 package com.example.addressbook
 
 import com.example.addressbook.requests.AddressType
+import com.example.addressbook.requests.EmailType
 import com.example.addressbook.requests.PhoneNumberType
 import java.util.UUID
 
@@ -28,4 +29,12 @@ data class PhoneNumber(
     val personId: PersonId,
     val phoneNumberType: PhoneNumberType,
     val phone: String,
+)
+
+typealias EmailId = UUID
+data class Email(
+    val emailId: EmailId,
+    val personId: PersonId,
+    val emailType: EmailType,
+    val emailAddress: String,
 )

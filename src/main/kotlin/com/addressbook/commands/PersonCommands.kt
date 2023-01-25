@@ -1,6 +1,7 @@
-import com.addressbook.commands.Command
+package com.addressbook.commands
+
+import com.addressbook.storages.PersonDB
 import com.example.addressbook.Person
-import com.example.addressbook.PersonId
 import com.example.addressbook.requests.AddPersonRequest
 import com.example.addressbook.requests.RemovePersonRequest
 import com.example.addressbook.requests.UpdatePersonRequest

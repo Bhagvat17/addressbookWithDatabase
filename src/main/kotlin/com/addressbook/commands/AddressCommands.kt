@@ -1,4 +1,5 @@
-import com.addressbook.commands.Command
+package com.addressbook.commands
+
 import com.addressbook.storages.AddressDB
 import com.example.addressbook.Address
 import com.example.addressbook.requests.AddAddressRequest
