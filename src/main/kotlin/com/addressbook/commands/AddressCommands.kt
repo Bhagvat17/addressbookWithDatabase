@@ -1,7 +1,6 @@
 import com.addressbook.commands.Command
 import com.addressbook.storages.AddressDB
 import com.example.addressbook.Address
-import com.example.addressbook.Person
 import com.example.addressbook.requests.AddAddressRequest
 import java.util.*
 

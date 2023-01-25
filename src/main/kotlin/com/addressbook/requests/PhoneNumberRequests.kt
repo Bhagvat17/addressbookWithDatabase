@@ -8,7 +8,7 @@ enum class PhoneNumberType {
     Office
 }
 
-data class PhoneNumberRequest(
+data class AddPhoneNumberRequest(
     val personId: PersonId,
     val type: PhoneNumberType,
     val phone: String,

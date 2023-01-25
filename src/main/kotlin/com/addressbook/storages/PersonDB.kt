@@ -25,4 +25,10 @@ object PersonDB {
         }
         return person
     }
+
+//    fun fetchPerson(person: Person): Person{
+//        transaction {
+//            Persons.select
+//        }
+//    }
 }

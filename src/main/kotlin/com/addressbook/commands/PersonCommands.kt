@@ -50,7 +50,9 @@ class AddPersonCommand(
 }
 
 
-class UpdatePersonCommand(private val storage: PersonDB, private val request: UpdatePersonRequest) : Command {
+class UpdatePersonCommand(
+    private val storage: PersonDB,
+    private val request: UpdatePersonRequest) : Command {
     override fun execute(): Person {
         val person = request.toPerson()
         val personDetail = storage.updatePerson(person)
@@ -62,20 +64,20 @@ class UpdatePersonCommand(private val storage: PersonDB, private val request: Up
     }
 }
 
-class FetchPersonCommand(
-    private val storage: PersonDB,
-    private val personId: PersonId,
-) : Command {
-    override fun execute(): Person {
-        val person = storage.fetchPerson(storage, personId)
-
-        return Person(
-            personId = person.personId,
-            firstName = person.firstName,
-            lastName = person.lastName,
-        )
-    }
-}
+//class FetchPersonCommand(
+//    private val storage: PersonDB,
+//    private val personId: PersonId,
+//) : Command {
+//    override fun execute(): Person {
+//        val person = storage.fetchPerson(personId)
+//
+//        return Person(
+//            personId = person.personId,
+//            firstName = person.firstName,
+//            lastName = person.lastName,
+//        )
+//    }
+//}
 
 
 //class RemovePersonCommand(

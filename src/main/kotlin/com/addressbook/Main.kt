@@ -2,17 +2,16 @@ package com.addressbook
 
 import AddAddressCommand
 import AddPersonCommand
+import AddPhoneNumberCommand
 import PersonDB
 import UpdatePersonCommand
 import com.addressbook.storages.AddressDB
+import com.addressbook.storages.PhoneNumberDB
 import com.addressbook.tables.Addresses
 import com.addressbook.tables.Emails
 import com.addressbook.tables.Persons
 import com.addressbook.tables.PhoneNumbers
-import com.example.addressbook.requests.AddAddressRequest
-import com.example.addressbook.requests.AddPersonRequest
-import com.example.addressbook.requests.AddressType
-import com.example.addressbook.requests.UpdatePersonRequest
+import com.example.addressbook.requests.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -30,14 +29,11 @@ fun main(args: Array<String>) {
         SchemaUtils.create(Persons, PhoneNumbers, Emails, Addresses)
     }
 
-    val person1 = AddPersonRequest("Bhagvatsinh","jadeja")
-    val bhagvat = AddPersonCommand(PersonDB, person1).execute()
-    val person2 = AddPersonRequest("Parth","Raval")
-    val parth = AddPersonCommand(PersonDB, person2).execute()
-    val person3 = AddPersonRequest("Hamza","Malik")
-    val hamza = AddPersonCommand(PersonDB, person3).execute()
+    val bhagvat = AddPersonCommand(PersonDB, AddPersonRequest("Bhagvatsinh","jadeja")).execute()
+    val parth = AddPersonCommand(PersonDB, AddPersonRequest("Parth","Raval")).execute()
+    val hamza = AddPersonCommand(PersonDB, AddPersonRequest("Hamza","Malik")).execute()
     AddAddressCommand(AddressDB, AddAddressRequest(bhagvat.personId,AddressType.Office,"Gondal")).execute()
+    AddPhoneNumberCommand(PhoneNumberDB, AddPhoneNumberRequest(bhagvat.personId,PhoneNumberType.Home,"2929329392")).execute()
     UpdatePersonCommand(PersonDB,UpdatePersonRequest(parth.personId,"Paaarth","Ravel")).execute()
-
 }
 

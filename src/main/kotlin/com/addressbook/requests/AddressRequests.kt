@@ -1,6 +1,5 @@
 package com.example.addressbook.requests
 
-import com.example.addressbook.AddressId
 import com.example.addressbook.PersonId
 
 
