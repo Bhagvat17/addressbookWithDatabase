@@ -1,8 +1,8 @@
 package com.addressbook.tables
 
-import com.example.addressbook.requests.AddressType
-import com.example.addressbook.requests.EmailType
-import com.example.addressbook.requests.PhoneNumberType
+import com.example.addressbookdb.requests.AddressType
+import com.example.addressbookdb.requests.EmailType
+import com.example.addressbookdb.requests.PhoneNumberType
 import org.jetbrains.exposed.sql.Table
 
 object Persons : Table() {
@@ -19,7 +19,7 @@ object PhoneNumbers : Table() {
     val phoneNumberType = enumerationByName<PhoneNumberType>("type",10)
     val phone = varchar("phone_number", length = 12)
 
-    override val primaryKey = PrimaryKey(PhoneNumbers.phoneNumberId, name = "PK_PhoneNumber_ID")
+    override val primaryKey = PrimaryKey(phoneNumberId, name = "PK_PhoneNumber_ID")
 }
 
 object Emails : Table() {
@@ -28,7 +28,7 @@ object Emails : Table() {
     val emailType = enumerationByName<EmailType>("type",10)
     val emailAddress = varchar("email_address", length = 100)
 
-    override val primaryKey = PrimaryKey(Emails.emailId, name = "PK_Email_ID")
+    override val primaryKey = PrimaryKey(emailId, name = "PK_Email_ID")
 }
 
 object Addresses : Table() {
@@ -37,7 +37,13 @@ object Addresses : Table() {
     val addressType =   enumerationByName<AddressType>("type",10)
     val addressLine = varchar("address_detail", length = 100)
 
+    override val primaryKey = PrimaryKey(addressId, name = "PK_Address_ID")
+}
 
-    override val primaryKey = PrimaryKey(Addresses.addressId, name = "PK_Address_ID")
-//    override val foreignKey = ForeignKey(Addresses.personId, name = "FK_Person_ID")
+object Groups : Table() {
+    val groupId = uuid("group_id").autoGenerate()
+    val personId = (uuid("person_id") references Persons.personId).index()
+    val groupName = varchar("group_name", length = 10)
+
+    override val primaryKey = PrimaryKey(groupId, name = "PK_Group_ID")
 }

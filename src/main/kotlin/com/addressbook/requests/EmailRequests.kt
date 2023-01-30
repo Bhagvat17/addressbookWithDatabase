@@ -1,7 +1,7 @@
-package com.example.addressbook.requests
+package com.example.addressbookdb.requests
 
-import com.example.addressbook.PersonId
-import java.util.*
+import com.example.addressbookdb.EmailId
+import com.example.addressbookdb.PersonId
 
 enum class EmailType {
     Home,
@@ -10,6 +10,20 @@ enum class EmailType {
 
 data class AddEmailRequest(
     val personId: PersonId,
-    val type: EmailType,
+    val emailType: EmailType,
     val emailAddress: String,
     )
+
+data class UpdateEmailRequest(
+    val emailId: EmailId,
+    val personId: PersonId,
+    val emailType: EmailType,
+    val emailAddress: String,
+)
+
+data class RemoveEmailRequest(
+    val emailId: EmailId,
+    val personId: PersonId,
+    val emailType: EmailType,
+    val emailAddress: String,
+)

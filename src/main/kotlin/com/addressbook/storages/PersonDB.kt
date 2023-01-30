@@ -1,7 +1,10 @@
 package com.addressbook.storages
 
-import com.addressbook.tables.Persons
-import com.example.addressbook.Person
+import com.addressbook.tables.*
+import com.example.addressbookdb.Person
+import com.example.addressbookdb.PersonId
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -19,7 +22,7 @@ object PersonDB {
     }
     fun updatePerson(person: Person): Person {
         transaction{
-            Persons.update({Persons.personId eq person.personId}) {
+            Persons.update({ Persons.personId eq person.personId}) {
                 it[this.firstName] = person.firstName
                 it[this.lastName] = person.lastName
             }
@@ -27,9 +30,16 @@ object PersonDB {
         return person
     }
 
-//    fun fetchPerson(person: Person): Person{
-//        transaction {
-//            Persons.select
-//        }
-//    }
+
+    fun removePerson(personId: PersonId): String{
+        transaction {
+            PhoneNumbers.deleteWhere { PhoneNumbers.personId eq personId }
+            Emails.deleteWhere { Emails.personId eq personId }
+            Addresses.deleteWhere { Addresses.personId eq personId }
+            Groups.deleteWhere { Groups.personId eq personId }
+            Persons.deleteWhere { Persons.personId eq personId }
+        }
+        return "Person with first name as ${personId} is deleted."
+    }
+
 }

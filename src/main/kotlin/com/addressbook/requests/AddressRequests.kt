@@ -1,6 +1,8 @@
-package com.example.addressbook.requests
+package com.example.addressbookdb.requests
 
-import com.example.addressbook.PersonId
+import com.example.addressbookdb.AddressId
+import com.example.addressbookdb.PersonId
+import java.util.*
 
 
 enum class AddressType {
@@ -10,7 +12,21 @@ enum class AddressType {
 
 data class AddAddressRequest(
     val personId: PersonId,
-    val type: AddressType,
-    val addressDetail: String,
+    val addressType: AddressType,
+    val addressLine: String,
+)
+
+data class UpdateAddressRequest(
+    val addressId: AddressId,
+    val personId: PersonId,
+    val addressType: AddressType,
+    val addressLine: String,
+)
+
+data class RemoveAddressRequest(
+    val addressId: AddressId,
+    val personId: PersonId,
+    val addressType: AddressType,
+    val addressLine: String,
 )
 

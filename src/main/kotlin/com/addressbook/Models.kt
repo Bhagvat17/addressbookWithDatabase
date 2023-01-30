@@ -1,8 +1,8 @@
-package com.example.addressbook
+package com.example.addressbookdb
 
-import com.example.addressbook.requests.AddressType
-import com.example.addressbook.requests.EmailType
-import com.example.addressbook.requests.PhoneNumberType
+import com.example.addressbookdb.requests.AddressType
+import com.example.addressbookdb.requests.EmailType
+import com.example.addressbookdb.requests.PhoneNumberType
 import java.util.UUID
 
 typealias PersonId = UUID
@@ -37,4 +37,12 @@ data class Email(
     val personId: PersonId,
     val emailType: EmailType,
     val emailAddress: String,
+)
+
+typealias GroupId = UUID
+
+data class Group(
+    val groupId: GroupId,
+    val personId: PersonId,
+    val groupName: String,
 )
