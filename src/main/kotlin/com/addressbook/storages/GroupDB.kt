@@ -18,12 +18,12 @@ object GroupDB {
         return group
     }
 
-    fun updateGroup(group: Group): Group {
-        transaction{
-            Groups.update({ Groups.personId eq group.personId}) {
-                it[this.groupName] = group.groupName
-            }
-        }
-        return group
-    }
+//    fun updateGroup(group: Group): Group {
+//        transaction{
+//            Groups.update({ Groups.personId eq group.personId}) {
+//                it[this.groupName] = group.groupName
+//            }
+//        }
+//        return group
+//    }
 }
