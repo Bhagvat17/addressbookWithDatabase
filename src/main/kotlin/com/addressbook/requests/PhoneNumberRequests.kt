@@ -20,10 +20,3 @@ data class UpdatePhoneNumberRequest(
     val phoneNumberType: PhoneNumberType,
     val phone: String,
 )
-
-data class RemovePhoneNumberRequest(
-    val phoneNumberId: PhoneNumberId,
-    val personId: PersonId,
-    val phoneNumberType: PhoneNumberType,
-    val phone: String,
-)

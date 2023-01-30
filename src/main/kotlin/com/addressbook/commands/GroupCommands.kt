@@ -17,12 +17,6 @@ fun AddGroupRequest.toGroup() =
         groupName = this@toGroup.groupName,
     )
 
-fun UpdateGroupRequest.toGroup() =
-    Group(
-        groupId = this@toGroup.groupId,
-        groupName = this@toGroup.groupName,
-    )
-
 class AddGroupCommand(
     private val storage: GroupDB,
     private val request: AddGroupRequest

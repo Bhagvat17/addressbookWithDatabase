@@ -13,9 +13,3 @@ data class UpdatePersonRequest(
     val lastName: String,
 )
 
-
-data class FetchPersonRequest(
-    val personId: UUID
-)
-
-class ListPersonRequest()

@@ -22,11 +22,3 @@ data class UpdateAddressRequest(
     val addressType: AddressType,
     val addressLine: String,
 )
-
-data class RemoveAddressRequest(
-    val addressId: AddressId,
-    val personId: PersonId,
-    val addressType: AddressType,
-    val addressLine: String,
-)
-

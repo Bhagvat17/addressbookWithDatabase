@@ -20,10 +20,3 @@ data class UpdateEmailRequest(
     val emailType: EmailType,
     val emailAddress: String,
 )
-
-data class RemoveEmailRequest(
-    val emailId: EmailId,
-    val personId: PersonId,
-    val emailType: EmailType,
-    val emailAddress: String,
-)
