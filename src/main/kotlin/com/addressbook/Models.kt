@@ -43,6 +43,5 @@ typealias GroupId = UUID
 
 data class Group(
     val groupId: GroupId,
-    val personId: PersonId,
     val groupName: String,
 )

@@ -37,4 +37,5 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.mysql:mysql-connector-j:8.0.31")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 }

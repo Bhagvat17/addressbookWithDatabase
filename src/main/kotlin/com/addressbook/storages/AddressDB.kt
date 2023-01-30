@@ -4,11 +4,9 @@ import com.addressbook.tables.*
 import com.example.addressbookdb.Address
 import com.example.addressbookdb.AddressId
 import com.example.addressbookdb.PersonId
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
 
 object AddressDB {
 
@@ -45,5 +43,33 @@ object AddressDB {
             Addresses.deleteWhere { Addresses.addressId eq addressId }
         }
         return "Person with first name as ${addressId} is deleted."
+    }
+
+    fun showAllAddress(): List<Address>{
+        val result = transaction {
+            Addresses.selectAll().map{
+                    row -> Address(row[Addresses.addressId],row[Addresses.personId],row[Addresses.addressType], row[Addresses.addressLine])
+            }
+        }
+        return result
+    }
+
+    fun showAddressByPersonId(personId: PersonId): List<Address>{
+        val result = transaction {
+            Addresses.select{ Addresses.personId eq personId}.map{
+                    row -> Address(row[Addresses.addressId],row[Addresses.personId],row[Addresses.addressType], row[Addresses.addressLine])
+            }
+        }
+        return result
+    }
+
+    fun showAddressByPersonName(personName: String): List<Address>{
+        val result = transaction {
+            (Addresses innerJoin Persons)
+            Addresses.select{ Persons.firstName eq personName}.map{
+                    row -> Address(row[Addresses.addressId],row[Addresses.personId],row[Addresses.addressType], row[Addresses.addressLine])
+            }
+        }
+        return result
     }
 }

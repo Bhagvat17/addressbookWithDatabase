@@ -1,14 +1,13 @@
 package com.addressbook.storages
 
 import com.addressbook.tables.Emails
+import com.addressbook.tables.Persons
 import com.example.addressbookdb.Email
 import com.example.addressbookdb.EmailId
 import com.example.addressbookdb.PersonId
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
 
 object EmailDB {
     fun addEmail(email: Email): Email {
@@ -45,5 +44,33 @@ object EmailDB {
             Emails.deleteWhere { Emails.emailId eq emailId }
         }
         return "Person with first name as ${emailId} is deleted."
+    }
+
+    fun showAllEmail(): List<Email>{
+        val result = transaction {
+            Emails.selectAll().map{
+                    row -> Email(row[Emails.emailId],row[Emails.personId],row[Emails.emailType], row[Emails.emailAddress])
+            }
+        }
+        return result
+    }
+
+    fun showEmailByPersonId(personId: PersonId): List<Email>{
+        val result = transaction {
+            Emails.select{ Emails.personId eq personId}.map{
+                    row -> Email(row[Emails.emailId],row[Emails.personId],row[Emails.emailType], row[Emails.emailAddress])
+            }
+        }
+        return result
+    }
+
+    fun showEmailByPersonName(personName: String): List<Email>{
+        val result = transaction {
+            (Emails innerJoin Persons)
+            Emails.select{ Persons.firstName eq personName}.map{
+                    row -> Email(row[Emails.emailId],row[Emails.personId],row[Emails.emailType], row[Emails.emailAddress])
+            }
+        }
+        return result
     }
 }

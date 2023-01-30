@@ -70,3 +70,11 @@ class RemovePersonCommand(
         return " contact deleted"
     }
 }
+
+class ListAllPersonCommand(
+    private val storage: PersonDB,
+): Command{
+    override fun execute(): List<Person> {
+        return storage.listAllPerson()
+    }
+}

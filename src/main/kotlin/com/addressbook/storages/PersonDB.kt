@@ -6,6 +6,7 @@ import com.example.addressbookdb.PersonId
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 
@@ -36,10 +37,19 @@ object PersonDB {
             PhoneNumbers.deleteWhere { PhoneNumbers.personId eq personId }
             Emails.deleteWhere { Emails.personId eq personId }
             Addresses.deleteWhere { Addresses.personId eq personId }
-            Groups.deleteWhere { Groups.personId eq personId }
+            GroupPersonsAssociation.deleteWhere { GroupPersonsAssociation.personId eq personId }
             Persons.deleteWhere { Persons.personId eq personId }
         }
         return "Person with first name as ${personId} is deleted."
+    }
+
+    fun listAllPerson(): List<Person>{
+        val result = transaction {
+            Persons.selectAll().map{
+                row -> Person(row[Persons.personId],row[Persons.firstName],row[Persons.lastName])
+            }
+        }
+        return result
     }
 
 }

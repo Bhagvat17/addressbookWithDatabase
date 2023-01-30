@@ -1,6 +1,7 @@
 package com.addressbook.commands
 
 import com.addressbook.storages.PhoneNumberDB
+import com.addressbook.tables.PhoneNumbers.personId
 import com.example.addressbookdb.PersonId
 import com.example.addressbookdb.PhoneNumber
 import com.example.addressbookdb.PhoneNumberId
@@ -70,5 +71,31 @@ class RemovePhoneNumberByPhoneNumberIdCommand(
     override fun execute(): Any {
         storage.removePhoneNumberByPhoneNumberId(phoneNumberId)
         return " phoneNumber deleted"
+    }
+}
+
+class ListAllPhoneNumberCommand(
+    private val storage: PhoneNumberDB
+): Command{
+    override fun execute(): Any {
+        return storage.showAllPhoneNumber()
+    }
+}
+
+class ShowPhoneNumberByPersonIdCommand(
+    private val storage: PhoneNumberDB,
+    private val personId: PersonId
+): Command{
+    override fun execute(): Any {
+        return storage.showPhoneNumberByPersonId(personId)
+    }
+}
+
+class ShowPhoneNumberByPersonNameCommand(
+    private val storage: PhoneNumberDB,
+    private val personName: String
+): Command{
+    override fun execute(): Any {
+        return storage.showPhoneNumberByPersonName(personName)
     }
 }

@@ -72,3 +72,29 @@ class RemoveEmailByEmailIdCommand(
         return " email deleted"
     }
 }
+
+class ListAllEmailCommand(
+    private val storage: EmailDB
+): Command{
+    override fun execute(): Any {
+        return storage.showAllEmail()
+    }
+}
+
+class ShowEmailByPersonIdCommand(
+    private val storage: EmailDB,
+    private val personId: PersonId
+): Command{
+    override fun execute(): Any {
+        return storage.showEmailByPersonId(personId)
+    }
+}
+
+class ShowEmailByPersonNameCommand(
+    private val storage: EmailDB,
+    private val personName: String
+): Command{
+    override fun execute(): Any {
+        return storage.showEmailByPersonName(personName)
+    }
+}

@@ -1,10 +1,12 @@
-import com.addressbook.commands.Command
-import com.addressbook.commands.toPhoneNumber
-import com.addressbook.storages.GroupDB
-import com.example.addressbookdb.Group
+package com.addressbook.commands
+
 import com.addressbook.requests.AddGroupRequest
 import com.addressbook.requests.UpdateGroupRequest
+import com.addressbook.storages.GroupDB
 import com.addressbook.storages.PhoneNumberDB
+import com.example.addressbookdb.Group
+import com.example.addressbookdb.GroupId
+import com.example.addressbookdb.PersonId
 import com.example.addressbookdb.PhoneNumber
 import com.example.addressbookdb.requests.UpdatePhoneNumberRequest
 import java.util.*
@@ -12,14 +14,12 @@ import java.util.*
 fun AddGroupRequest.toGroup() =
     Group(
         groupId = UUID.randomUUID(),
-        personId = this@toGroup.personId,
         groupName = this@toGroup.groupName,
     )
 
 fun UpdateGroupRequest.toGroup() =
     Group(
         groupId = this@toGroup.groupId,
-        personId = this@toGroup.personId,
         groupName = this@toGroup.groupName,
     )
 
@@ -35,18 +35,44 @@ class AddGroupCommand(
 
         return Group(
             groupId= groupDetail.groupId,
-            personId = groupDetail.personId,
             groupName = groupDetail.groupName,
         )
     }
 }
 
-class UpdatePhoneNumberCommand(
-    private val storage: PhoneNumberDB,
-    private val request: UpdatePhoneNumberRequest
-) : Command {
-    override fun execute(): PhoneNumber {
-        val phoneNumber = request.toPhoneNumber()
-        return storage.updatePhoneNumber(phoneNumber)
+
+class ConnectPersonsWithGroup(
+    private val groupId: GroupId,
+    private val personIds: List<PersonId>
+): Command {
+    override fun execute(): Any {
+        return GroupDB.connectPersonsWithGroup(groupId, personIds)
+    }
+}
+
+class ConnectGroupsWithPerson(
+    private val personId: PersonId,
+    private val groupIds: List<GroupId>
+): Command {
+    override fun execute(): Any {
+        return GroupDB.connectGroupsWithPerson(personId, groupIds)
+    }
+}
+
+class RemoveGroupCommand(
+    private val groupId: GroupId,
+): Command{
+    override fun execute(): Any {
+        return GroupDB.removeGroup(groupId)
+    }
+}
+
+
+class RemovePersonFromGroupCommand(
+    private val groupId: GroupId,
+    private val personId: PersonId
+): Command{
+    override fun execute(): Any {
+        return GroupDB.removePersonFromGroup(groupId, personId)
     }
 }
