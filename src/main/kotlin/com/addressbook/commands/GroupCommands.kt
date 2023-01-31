@@ -1,14 +1,12 @@
 package com.addressbook.commands
 
+import arrow.core.Either
+import com.addressbook.CommandContext
+import com.addressbook.Group
+import com.addressbook.GroupId
+import com.addressbook.PersonId
 import com.addressbook.requests.AddGroupRequest
-import com.addressbook.requests.UpdateGroupRequest
 import com.addressbook.storages.GroupDB
-import com.addressbook.storages.PhoneNumberDB
-import com.example.addressbookdb.Group
-import com.example.addressbookdb.GroupId
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.PhoneNumber
-import com.example.addressbookdb.requests.UpdatePhoneNumberRequest
 import java.util.*
 
 fun AddGroupRequest.toGroup() =
@@ -18,55 +16,61 @@ fun AddGroupRequest.toGroup() =
     )
 
 class AddGroupCommand(
-    private val storage: GroupDB,
+    val cmdCtx: CommandContext,
     private val request: AddGroupRequest
 ): Command {
-    override fun execute(): Group {
-        val group = request.toGroup()
+    override fun execute(): Either<Exception, Group> = GroupDB.addGroup(request.toGroup())
 
-
-        val groupDetail = storage.addGroup(group)
-
-        return Group(
-            groupId= groupDetail.groupId,
-            groupName = groupDetail.groupName,
-        )
-    }
-}
-
-
-class ConnectPersonsWithGroup(
-    private val groupId: GroupId,
-    private val personIds: List<PersonId>
-): Command {
-    override fun execute(): Any {
-        return GroupDB.connectPersonsWithGroup(groupId, personIds)
-    }
-}
-
-class ConnectGroupsWithPerson(
-    private val personId: PersonId,
-    private val groupIds: List<GroupId>
-): Command {
-    override fun execute(): Any {
-        return GroupDB.connectGroupsWithPerson(personId, groupIds)
-    }
 }
 
 class RemoveGroupCommand(
+    val cmdCtx: CommandContext,
     private val groupId: GroupId,
 ): Command{
-    override fun execute(): Any {
-        return GroupDB.removeGroup(groupId)
-    }
+    override fun execute(): Either<Exception, Any> = GroupDB.removeGroup(groupId)
 }
 
-
 class RemovePersonFromGroupCommand(
+    val cmdCtx: CommandContext,
     private val groupId: GroupId,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Any {
-        return GroupDB.removePersonFromGroup(groupId, personId)
-    }
+    override fun execute(): Either<Exception, Any> = GroupDB.removePersonFromGroup(groupId, personId)
+}
+
+class ConnectPersonsWithGroupCommand(
+    val cmdCtx: CommandContext,
+    private val groupId: GroupId,
+    private val personIds: List<PersonId>
+): Command {
+    override fun execute(): Either<Exception, Any> = GroupDB.connectPersonsWithGroup(groupId, personIds)
+}
+
+class ConnectGroupsWithPersonCommand(
+    val cmdCtx: CommandContext,
+    private val personId: PersonId,
+    private val groupIds: List<GroupId>
+): Command {
+    override fun execute(): Either<Exception, Any> = GroupDB.connectGroupsWithPerson(personId, groupIds)
+}
+
+class ListAllGroupsCommand(
+    val cmdCtx: CommandContext,
+): Command{
+    override fun execute(): Either<Exception, Any> = GroupDB.listAllGroups()
+}
+
+class ShowPersonsOfGroupCommand(
+    val cmdCtx: CommandContext,
+    private val groupId: GroupId
+): Command{
+    override fun execute(): Either<Exception, Any> = GroupDB.showPersonsOfGroup(groupId)
+}
+
+
+class ShowGroupsOfPersonCommand(
+    val cmdCtx: CommandContext,
+    private val personId: PersonId
+): Command{
+    override fun execute(): Either<Exception, Any> = GroupDB.showGroupsOfPersons(personId)
 }

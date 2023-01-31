@@ -1,3 +1,4 @@
+package com.addressbook
 import org.jetbrains.exposed.sql.Database
 
 data class AppContext(

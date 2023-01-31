@@ -1,4 +1,4 @@
-package com.example.addressbookdb.requests
+package com.addressbook.requests
 
 import java.util.UUID
 

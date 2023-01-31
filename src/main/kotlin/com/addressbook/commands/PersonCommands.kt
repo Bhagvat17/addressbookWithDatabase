@@ -1,10 +1,12 @@
 package com.addressbook.commands
 
+import arrow.core.Either
+import com.addressbook.CommandContext
+import com.addressbook.Person
+import com.addressbook.PersonId
+import com.addressbook.requests.AddPersonRequest
+import com.addressbook.requests.UpdatePersonRequest
 import com.addressbook.storages.PersonDB
-import com.example.addressbookdb.Person
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.requests.AddPersonRequest
-import com.example.addressbookdb.requests.UpdatePersonRequest
 import java.util.*
 
 
@@ -27,54 +29,51 @@ fun UpdatePersonRequest.toPerson() =
 
 
 class AddPersonCommand(
-    private val storage: PersonDB,
+    val cmdCtx: CommandContext,
     private val request: AddPersonRequest
 ): Command {
-    override fun execute(): Person {
-        val person = request.toPerson()
-
-
-        val personDetail = storage.addPerson(person)
-
-        return Person(
-            personId = personDetail.personId,
-            firstName = personDetail.firstName,
-            lastName = personDetail.lastName,
-        )
-    }
+    override fun execute(): Either<Exception, Person> = PersonDB.addPerson(request.toPerson())
 }
 
 
 class UpdatePersonCommand(
-    private val storage: PersonDB,
-    private val request: UpdatePersonRequest) : Command {
-    override fun execute(): Person {
-        val person = request.toPerson()
-        val personDetail = storage.updatePerson(person)
-        return Person(
-            personId = personDetail.personId,
-            firstName = personDetail.firstName,
-            lastName = personDetail.lastName,
-        )
-    }
+    val cmdCtx: CommandContext,
+    private val request: UpdatePersonRequest
+) : Command {
+    override fun execute(): Either<Exception,Person> = PersonDB.updatePerson(request.toPerson())
 }
 
 
 
 class RemovePersonCommand(
-    private val storage: PersonDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removePerson(personId)
-        return " contact deleted"
-    }
+    override fun execute(): Either<Exception,Any> = PersonDB.removePerson(personId)
 }
 
 class ListAllPersonCommand(
-    private val storage: PersonDB,
+    val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): List<Person> {
-        return storage.listAllPerson()
+    override fun execute(): Either<Exception, List<Person>> {
+        return PersonDB.listAllPerson()
+    }
+}
+
+class ShowPersonByPersonIdCommand(
+    val cmdCtx: CommandContext,
+    private val personId: PersonId
+): Command{
+    override fun execute(): Either<Exception, List<Person>> {
+        return PersonDB.showPersonByPersonId(personId)
+    }
+}
+
+class ShowPersonByPersonNameCommand(
+    val cmdCtx: CommandContext,
+    private val personName: String
+): Command{
+    override fun execute(): Either<Exception, List<Person>> {
+        return PersonDB.showPersonByPersonName(personName)
     }
 }

@@ -1,8 +1,6 @@
 package com.addressbook.requests
 
-import com.example.addressbookdb.GroupId
-import com.example.addressbookdb.PersonId
-
+import com.addressbook.GroupId
 
 data class AddGroupRequest (
     val groupName: String,

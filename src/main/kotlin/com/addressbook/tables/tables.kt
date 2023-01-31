@@ -1,8 +1,8 @@
 package com.addressbook.tables
 
-import com.example.addressbookdb.requests.AddressType
-import com.example.addressbookdb.requests.EmailType
-import com.example.addressbookdb.requests.PhoneNumberType
+import com.addressbook.requests.AddressType
+import com.addressbook.requests.EmailType
+import com.addressbook.requests.PhoneNumberType
 import org.jetbrains.exposed.sql.Table
 
 object Persons : Table("persons") {

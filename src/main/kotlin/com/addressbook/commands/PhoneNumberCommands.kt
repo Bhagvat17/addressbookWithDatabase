@@ -1,12 +1,10 @@
 package com.addressbook.commands
 
+import arrow.core.Either
+import com.addressbook.*
+import com.addressbook.requests.AddPhoneNumberRequest
+import com.addressbook.requests.UpdatePhoneNumberRequest
 import com.addressbook.storages.PhoneNumberDB
-import com.addressbook.tables.PhoneNumbers.personId
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.PhoneNumber
-import com.example.addressbookdb.PhoneNumberId
-import com.example.addressbookdb.requests.AddPhoneNumberRequest
-import com.example.addressbookdb.requests.UpdatePhoneNumberRequest
 import java.util.*
 
 fun AddPhoneNumberRequest.toPhoneNumber() =
@@ -26,76 +24,50 @@ fun UpdatePhoneNumberRequest.toPhoneNumber() =
     )
 
 class AddPhoneNumberCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val request: AddPhoneNumberRequest
 ): Command {
-    override fun execute(): PhoneNumber {
-        val phoneNumber = request.toPhoneNumber()
-
-
-        val phoneNumberDetail = PhoneNumberDB.addPhoneNumber(phoneNumber)
-
-        return PhoneNumber(
-            phoneNumberId= phoneNumberDetail.phoneNumberId,
-            personId = phoneNumberDetail.personId,
-            phoneNumberType = phoneNumberDetail.phoneNumberType,
-            phone=phoneNumberDetail.phone
-        )
-    }
+    override fun execute(): Either<Exception, PhoneNumber> = PhoneNumberDB.addPhoneNumber(request.toPhoneNumber())
 }
 
 class UpdatePhoneNumberCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val request: UpdatePhoneNumberRequest
 ) : Command {
-    override fun execute(): PhoneNumber {
-        val phoneNumber = request.toPhoneNumber()
-        return storage.updatePhoneNumber(phoneNumber)
-    }
+    override fun execute(): Either<Exception, PhoneNumber> = PhoneNumberDB.updatePhoneNumber(request.toPhoneNumber())
+
 }
 
 class RemovePhoneNumberByPersonIdCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removePhoneNumberByPersonId(personId)
-        return " phoneNumber deleted"
-    }
+    override fun execute(): Either<Exception, String> = PhoneNumberDB.removePhoneNumberByPersonId(personId)
 }
 
 class RemovePhoneNumberByPhoneNumberIdCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val phoneNumberId: PhoneNumberId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removePhoneNumberByPhoneNumberId(phoneNumberId)
-        return " phoneNumber deleted"
-    }
+    override fun execute(): Either<Exception, String> = PhoneNumberDB.removePhoneNumberByPhoneNumberId(phoneNumberId)
 }
 
 class ListAllPhoneNumberCommand(
-    private val storage: PhoneNumberDB
+    val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): Any {
-        return storage.showAllPhoneNumber()
-    }
+    override fun execute(): Either<Exception, Any> = PhoneNumberDB.listAllPhoneNumber()
 }
 
 class ShowPhoneNumberByPersonIdCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Any {
-        return storage.showPhoneNumberByPersonId(personId)
-    }
+    override fun execute(): Either<Exception, Any> = PhoneNumberDB.showPhoneNumberByPersonId(personId)
 }
 
 class ShowPhoneNumberByPersonNameCommand(
-    private val storage: PhoneNumberDB,
+    val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Any {
-        return storage.showPhoneNumberByPersonName(personName)
-    }
+    override fun execute(): Either<Exception, Any> = PhoneNumberDB.showPhoneNumberByPersonName(personName)
 }

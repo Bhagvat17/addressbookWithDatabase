@@ -1,8 +1,8 @@
-package com.example.addressbookdb
+package com.addressbook
 
-import com.example.addressbookdb.requests.AddressType
-import com.example.addressbookdb.requests.EmailType
-import com.example.addressbookdb.requests.PhoneNumberType
+import com.addressbook.requests.AddressType
+import com.addressbook.requests.EmailType
+import com.addressbook.requests.PhoneNumberType
 import java.util.UUID
 
 typealias PersonId = UUID

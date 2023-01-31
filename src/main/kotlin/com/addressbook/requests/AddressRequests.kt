@@ -1,8 +1,7 @@
-package com.example.addressbookdb.requests
+package com.addressbook.requests
 
-import com.example.addressbookdb.AddressId
-import com.example.addressbookdb.PersonId
-import java.util.*
+import com.addressbook.AddressId
+import com.addressbook.PersonId
 
 
 enum class AddressType {

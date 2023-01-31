@@ -1,13 +1,14 @@
 package com.addressbook.commands
 
-
+import arrow.core.Either
+import com.addressbook.Address
+import com.addressbook.AddressId
+import com.addressbook.CommandContext
+import com.addressbook.PersonId
+import com.addressbook.requests.*
 import com.addressbook.storages.AddressDB
-import com.example.addressbookdb.Address
-import com.example.addressbookdb.AddressId
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.requests.AddAddressRequest
-import com.example.addressbookdb.requests.UpdateAddressRequest
 import java.util.*
+
 
 fun AddAddressRequest.toAddress() =
     Address(
@@ -26,78 +27,50 @@ fun UpdateAddressRequest.toAddress() =
     )
 
 class AddAddressCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val request: AddAddressRequest
 ): Command {
-    override fun execute(): Address {
-        val address = request.toAddress()
-
-
-        val addressDetail = AddressDB.addAddress(address)
-
-        return Address(
-            addressId = addressDetail.addressId,
-            personId = addressDetail.personId,
-            addressType = addressDetail.addressType,
-            addressLine =addressDetail.addressLine
-        )
-    }
+    override fun execute(): Either<Exception, Address> = AddressDB.addAddress(request.toAddress())
 }
 
 class UpdateAddressCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val request: UpdateAddressRequest
 ) : Command {
-    override fun execute(): Address {
-        val address = request.toAddress()
-        return storage.updateAddress(address)
+    override fun execute(): Either<Exception, Address> = AddressDB.updateAddress(request.toAddress())
 
-    }
 }
 
 class RemoveAddressByPersonIdCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removeAddressByPersonID(personId)
-        return " address deleted"
-    }
+    override fun execute(): Either<Exception, String> = AddressDB.removeAddressByPersonId(personId)
 }
 
 class RemoveAddressByAddressIdCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val addressId: AddressId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removeAddressByAddressId(addressId)
-        return " address deleted"
-    }
+    override fun execute(): Either<Exception, String> = AddressDB.removeAddressByAddressId(addressId)
 }
 
-
 class ListAllAddressCommand(
-    private val storage: AddressDB
+    val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): Any {
-        return storage.showAllAddress()
-    }
+    override fun execute(): Either<Exception, Any> = AddressDB.listAllAddress()
 }
 
 class ShowAddressByPersonIdCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Any {
-        return storage.showAddressByPersonId(personId)
-    }
+    override fun execute(): Either<Exception, Any> = AddressDB.showAddressByPersonId(personId)
 }
 
 class ShowAddressByPersonNameCommand(
-    private val storage: AddressDB,
+    val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Any {
-        return storage.showAddressByPersonName(personName)
-    }
+    override fun execute(): Either<Exception, Any> = AddressDB.showAddressByPersonName(personName)
 }

@@ -1,7 +1,7 @@
-package com.example.addressbookdb.requests
+package com.addressbook.requests
 
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.PhoneNumberId
+import com.addressbook.PersonId
+import com.addressbook.PhoneNumberId
 
 enum class PhoneNumberType {
     Home,

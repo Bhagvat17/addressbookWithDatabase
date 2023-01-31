@@ -1,5 +1,5 @@
 package com.addressbook
-import AppContext
+
 import org.junit.jupiter.api.BeforeAll
 open class AppTest{
     companion object {

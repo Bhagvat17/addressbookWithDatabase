@@ -1,11 +1,7 @@
 package com.addressbook
 
-import com.addressbook.requests.AddGroupRequest
-import com.example.addressbookdb.AddressId
-import com.example.addressbookdb.EmailId
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.PhoneNumberId
-import com.example.addressbookdb.requests.*
+import com.addressbook.requests.*
+
 
 fun getPersonCreateRequest1(
     firstName: String = "BhagvatSinh",

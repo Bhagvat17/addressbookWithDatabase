@@ -33,6 +33,8 @@ tasks.withType<Test> {
 }
 val exposedVersion: String by project
 dependencies {
+    implementation("io.arrow-kt:arrow-core:1.1.2")
+
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")

@@ -29,15 +29,11 @@ val schema = listOf<Table>(
 
 fun resetDatabase() {
     transaction {
-        println("================")
         schema.reversed().forEach{
-            println(it.tableName)
             SchemaUtils.drop(it)
         }
 
-        println("----------------------")
         schema.forEach {
-            println(it.tableName)
             SchemaUtils.create(it)
         }
     }

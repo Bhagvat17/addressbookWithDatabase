@@ -1,11 +1,13 @@
 package com.addressbook.commands
 
+import arrow.core.Either
+import com.addressbook.CommandContext
+import com.addressbook.Email
+import com.addressbook.EmailId
+import com.addressbook.PersonId
+import com.addressbook.requests.AddEmailRequest
+import com.addressbook.requests.UpdateEmailRequest
 import com.addressbook.storages.EmailDB
-import com.example.addressbookdb.Email
-import com.example.addressbookdb.EmailId
-import com.example.addressbookdb.PersonId
-import com.example.addressbookdb.requests.AddEmailRequest
-import com.example.addressbookdb.requests.UpdateEmailRequest
 import java.util.*
 
 fun AddEmailRequest.toEmail() =
@@ -25,76 +27,50 @@ fun UpdateEmailRequest.toEmail() =
     )
 
 class AddEmailCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val request: AddEmailRequest
 ): Command {
-    override fun execute(): Email {
-        val email = request.toEmail()
-
-
-        val emailDetail = EmailDB.addEmail(email)
-
-        return Email(
-            emailId= emailDetail.emailId,
-            personId = emailDetail.personId,
-            emailType = emailDetail.emailType,
-            emailAddress =emailDetail.emailAddress
-        )
-    }
+    override fun execute(): Either<Exception, Email> = EmailDB.addEmail(request.toEmail())
 }
 
 class UpdateEmailCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val request: UpdateEmailRequest
 ) : Command {
-    override fun execute(): Email {
-        val email = request.toEmail()
-        return storage.updateEmail(email)
-    }
+    override fun execute(): Either<Exception, Email> = EmailDB.updateEmail(request.toEmail())
+
 }
 
 class RemoveEmailByPersonIdCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removeEmailByPersonId(personId)
-        return " email deleted"
-    }
+    override fun execute(): Either<Exception,String> = EmailDB.removeEmailByPersonId(personId)
 }
 
 class RemoveEmailByEmailIdCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val emailId: EmailId,
 ) : Command {
-    override fun execute(): Any {
-        storage.removeEmailByEmailId(emailId)
-        return " email deleted"
-    }
+    override fun execute(): Either<Exception,String> = EmailDB.removeEmailByEmailId(emailId)
 }
 
 class ListAllEmailCommand(
-    private val storage: EmailDB
+    val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): Any {
-        return storage.showAllEmail()
-    }
+    override fun execute(): Either<Exception,Any> = EmailDB.listAllEmail()
 }
 
 class ShowEmailByPersonIdCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Any {
-        return storage.showEmailByPersonId(personId)
-    }
+    override fun execute(): Either<Exception,Any> = EmailDB.showEmailByPersonId(personId)
 }
 
 class ShowEmailByPersonNameCommand(
-    private val storage: EmailDB,
+    val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Any {
-        return storage.showEmailByPersonName(personName)
-    }
+    override fun execute(): Either<Exception,Any> = EmailDB.showEmailByPersonName(personName)
 }

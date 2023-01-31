@@ -1,7 +1,7 @@
-package com.example.addressbookdb.requests
+package com.addressbook.requests
 
-import com.example.addressbookdb.EmailId
-import com.example.addressbookdb.PersonId
+import com.addressbook.EmailId
+import com.addressbook.PersonId
 
 enum class EmailType {
     Home,
