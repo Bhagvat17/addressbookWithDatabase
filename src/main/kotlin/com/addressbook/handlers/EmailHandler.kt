@@ -1,7 +1,7 @@
 package com.addressbook.handlers
 
 import arrow.core.Either
-import com.addressbook.Email
+import com.addressbook.models.Email
 import com.addressbook.commands.*
 
 object EmailHandler{
@@ -13,23 +13,23 @@ object EmailHandler{
         return cmd.execute()
     }
 
-    fun removeEmailByPersonIdHandler(cmd: RemoveEmailByPersonIdCommand): Either<Exception, Any> {
+    fun removeEmailByPersonIdHandler(cmd: RemoveEmailByPersonIdCommand): Either<Exception, String> {
         return cmd.execute()
     }
 
-    fun removeEmailByEmailIdHandler(cmd: RemoveEmailByEmailIdCommand): Either<Exception, Any> {
+    fun removeEmailByEmailIdHandler(cmd: RemoveEmailByEmailIdCommand): Either<Exception, String> {
         return cmd.execute()
     }
 
-    fun listAllEmailEntryPoint(cmd: ListAllEmailCommand): Either<Exception,Any> {
+    fun fetchAllEmailHandler(cmd: fetchAllEmailCommand): Either<Exception,List<Email>> {
         return cmd.execute()
     }
 
-    fun showEmailByPersonIdHandler(cmd: ShowEmailByPersonIdCommand): Either<Exception,Any>{
+    fun fetchEmailByPersonIdHandler(cmd: fetchEmailByPersonIdCommand): Either<Exception,List<Email>>{
         return cmd.execute()
     }
 
-    fun showEmailByPersonName(cmd: ShowEmailByPersonNameCommand): Either<Exception,Any>{
+    fun fetchEmailByPersonNameHandler(cmd: fetchEmailByPersonNameCommand): Either<Exception,List<Email>>{
         return cmd.execute()
     }
 }

@@ -1,8 +1,15 @@
 package com.addressbook.entrypoints
 
 import arrow.core.Either
-import com.addressbook.*
 import com.addressbook.commands.*
+import com.addressbook.handlers.PhoneNumberHandler.addPhoneNumberHandler
+import com.addressbook.handlers.PhoneNumberHandler.fetchAllPhoneNumberHandler
+import com.addressbook.handlers.PhoneNumberHandler.fetchPhoneNumberByPersonIdHandler
+import com.addressbook.handlers.PhoneNumberHandler.fetchPhoneNumberByPersonNameHandler
+import com.addressbook.handlers.PhoneNumberHandler.removePhoneNumberByPersonIdHandler
+import com.addressbook.handlers.PhoneNumberHandler.removePhoneNumberByPhoneNumberIdHandler
+import com.addressbook.handlers.PhoneNumberHandler.updatePhoneNumberHandler
+import com.addressbook.models.*
 import com.addressbook.requests.*
 
 fun addPhoneNumberEntryPoint(
@@ -11,7 +18,7 @@ fun addPhoneNumberEntryPoint(
 ): Either<Exception, PhoneNumber> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = AddPhoneNumberCommand(cmdCtx,req)
-    return cmd.execute()
+    return addPhoneNumberHandler(cmd)
 }
 
 fun updatePhoneNumberEntryPoint(
@@ -20,7 +27,7 @@ fun updatePhoneNumberEntryPoint(
 ): Either<Exception, PhoneNumber> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = UpdatePhoneNumberCommand(cmdCtx,req)
-    return cmd.execute()
+    return updatePhoneNumberHandler(cmd)
 }
 
 
@@ -30,7 +37,7 @@ fun removePhoneNumberByPersonIdEntryPoint(
 ): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemovePhoneNumberByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    return removePhoneNumberByPersonIdHandler(cmd)
 }
 
 
@@ -40,31 +47,31 @@ fun removePhoneNumberByPhoneNumberIdEntryPoint(
 ): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemovePhoneNumberByPhoneNumberIdCommand(cmdCtx,phoneNumberId)
-    return cmd.execute()
+    return removePhoneNumberByPhoneNumberIdHandler(cmd)
 }
 
-fun listAllPhoneNumberEntryPoint(
+fun fetchAllPhoneNumberEntryPoint(
     ac: AppContext,
-): Either<Exception, Any> {
+): Either<Exception, List<PhoneNumber>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ListAllPhoneNumberCommand(cmdCtx)
-    return cmd.execute()
+    val cmd = fetchAllPhoneNumberCommand(cmdCtx)
+    return fetchAllPhoneNumberHandler(cmd)
 }
 
-fun showPhoneNumberByPersonIdEntryPoint(
+fun fetchPhoneNumberByPersonIdEntryPoint(
     ac: AppContext,
     personId: PersonId
-): Either<Exception, Any> {
+): Either<Exception, List<PhoneNumber>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowPhoneNumberByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    val cmd = fetchPhoneNumberByPersonIdCommand(cmdCtx,personId)
+    return fetchPhoneNumberByPersonIdHandler(cmd)
 }
 
-fun showPhoneNumberByPersonNameEntryPoint(
+fun fetchPhoneNumberByPersonNameEntryPoint(
     ac: AppContext,
     personName: String,
-): Either<Exception, Any> {
+): Either<Exception, List<PhoneNumber>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowPhoneNumberByPersonNameCommand(cmdCtx,personName)
-    return cmd.execute()
+    val cmd = fetchPhoneNumberByPersonNameCommand(cmdCtx,personName)
+    return fetchPhoneNumberByPersonNameHandler(cmd)
 }

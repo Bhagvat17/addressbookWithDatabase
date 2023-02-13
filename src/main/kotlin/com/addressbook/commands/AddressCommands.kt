@@ -1,12 +1,12 @@
 package com.addressbook.commands
 
 import arrow.core.Either
-import com.addressbook.Address
-import com.addressbook.AddressId
-import com.addressbook.CommandContext
-import com.addressbook.PersonId
+import com.addressbook.models.Address
+import com.addressbook.models.AddressId
+import com.addressbook.models.CommandContext
+import com.addressbook.models.PersonId
 import com.addressbook.requests.*
-import com.addressbook.storages.AddressDB
+import com.addressbook.repos.AddressRepo
 import java.util.*
 
 
@@ -30,14 +30,14 @@ class AddAddressCommand(
     val cmdCtx: CommandContext,
     private val request: AddAddressRequest
 ): Command {
-    override fun execute(): Either<Exception, Address> = AddressDB.addAddress(request.toAddress())
+    override fun execute(): Either<Exception, Address> = AddressRepo.addAddress(request.toAddress())
 }
 
 class UpdateAddressCommand(
     val cmdCtx: CommandContext,
     private val request: UpdateAddressRequest
 ) : Command {
-    override fun execute(): Either<Exception, Address> = AddressDB.updateAddress(request.toAddress())
+    override fun execute(): Either<Exception, Address> = AddressRepo.updateAddress(request.toAddress())
 
 }
 
@@ -45,32 +45,32 @@ class RemoveAddressByPersonIdCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Either<Exception, String> = AddressDB.removeAddressByPersonId(personId)
+    override fun execute(): Either<Exception, String> = AddressRepo.removeAddressByPersonId(personId)
 }
 
 class RemoveAddressByAddressIdCommand(
     val cmdCtx: CommandContext,
     private val addressId: AddressId,
 ) : Command {
-    override fun execute(): Either<Exception, String> = AddressDB.removeAddressByAddressId(addressId)
+    override fun execute(): Either<Exception, String> = AddressRepo.removeAddressByAddressId(addressId)
 }
 
-class ListAllAddressCommand(
+class fetchAllAddressCommand(
     val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): Either<Exception, Any> = AddressDB.listAllAddress()
+    override fun execute(): Either<Exception, List<Address>> = AddressRepo.fetchAllAddress()
 }
 
-class ShowAddressByPersonIdCommand(
+class fetchAddressByPersonIdCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Either<Exception, Any> = AddressDB.showAddressByPersonId(personId)
+    override fun execute(): Either<Exception, List<Address>> = AddressRepo.fetchAddressByPersonId(personId)
 }
 
-class ShowAddressByPersonNameCommand(
+class fetchAddressByPersonNameCommand(
     val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Either<Exception, Any> = AddressDB.showAddressByPersonName(personName)
+    override fun execute(): Either<Exception, List<Address>> = AddressRepo.fetchAddressByPersonName(personName)
 }

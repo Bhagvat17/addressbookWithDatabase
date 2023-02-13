@@ -1,8 +1,15 @@
 package com.addressbook.entrypoints
 
 import arrow.core.Either
-import com.addressbook.*
 import com.addressbook.commands.*
+import com.addressbook.handlers.AddressHandler.addAddressHandler
+import com.addressbook.handlers.AddressHandler.fetchAddressByPersonIdHandler
+import com.addressbook.handlers.AddressHandler.fetchAddressByPersonNameHandler
+import com.addressbook.handlers.AddressHandler.fetchAllAddressHandler
+import com.addressbook.handlers.AddressHandler.removeAddressByAddressIdHandler
+import com.addressbook.handlers.AddressHandler.removeAddressByPersonIdHandler
+import com.addressbook.handlers.AddressHandler.updateAddressHandler
+import com.addressbook.models.*
 import com.addressbook.requests.AddAddressRequest
 import com.addressbook.requests.UpdateAddressRequest
 
@@ -13,7 +20,7 @@ fun addAddressEntryPoint(
 ): Either<Exception, Address> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = AddAddressCommand(cmdCtx,req)
-    return cmd.execute()
+    return addAddressHandler(cmd)
 }
 
 fun updateAddressEntryPoint(
@@ -22,7 +29,7 @@ fun updateAddressEntryPoint(
 ): Either<Exception, Address> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = UpdateAddressCommand(cmdCtx,req)
-    return cmd.execute()
+    return updateAddressHandler(cmd)
 }
 
 
@@ -32,7 +39,7 @@ fun removeAddressByPersonIdEntryPoint(
 ): Either<Exception,String>{
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemoveAddressByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    return removeAddressByPersonIdHandler(cmd)
 }
 
 
@@ -42,31 +49,31 @@ fun removeAddressByAddressIdEntryPoint(
 ): Either<Exception,String>{
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemoveAddressByAddressIdCommand(cmdCtx,addressId)
-    return cmd.execute()
+    return removeAddressByAddressIdHandler(cmd)
 }
 
-fun listAllAddressEntryPoint(
+fun fetchAllAddressEntryPoint(
     ac: AppContext,
-): Either<Exception,Any>{
+): Either<Exception,List<Address>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ListAllAddressCommand(cmdCtx)
-    return cmd.execute()
+    val cmd = fetchAllAddressCommand(cmdCtx)
+    return fetchAllAddressHandler(cmd)
 }
 
-fun showAddressByPersonIdEntryPoint(
+fun fetchAddressByPersonIdEntryPoint(
     ac: AppContext,
     personId: PersonId
-): Either<Exception,Any>{
+): Either<Exception,List<Address>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowAddressByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    val cmd = fetchAddressByPersonIdCommand(cmdCtx,personId)
+    return fetchAddressByPersonIdHandler(cmd)
 }
 
-fun showAddressByPersonNameEntryPoint(
+fun fetchAddressByPersonNameEntryPoint(
     ac: AppContext,
     personName: String,
-): Either<Exception,Any>{
+): Either<Exception,List<Address>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowAddressByPersonNameCommand(cmdCtx,personName)
-    return cmd.execute()
+    val cmd = fetchAddressByPersonNameCommand(cmdCtx,personName)
+    return fetchAddressByPersonNameHandler(cmd)
 }

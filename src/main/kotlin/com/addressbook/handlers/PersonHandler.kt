@@ -1,7 +1,7 @@
 package com.addressbook.handlers
 
 import arrow.core.Either
-import com.addressbook.Person
+import com.addressbook.models.Person
 import com.addressbook.commands.*
 
 object PersonHandler{
@@ -13,19 +13,19 @@ object PersonHandler{
         return cmd.execute()
     }
 
-    fun removePersonHandler(cmd: RemovePersonCommand): Either<Exception, Any>{
+    fun removePersonHandler(cmd: RemovePersonCommand): Either<Exception, String>{
         return cmd.execute()
     }
 
-    fun listAllPersonHandler(cmd: ListAllPersonCommand): Either<Exception, List<Person>>{
+    fun fetchAllPersonHandler(cmd: fetchAllPersonCommand): Either<Exception, List<Person>>{
         return cmd.execute()
     }
 
-    fun showPersonByPersonIdHandler(cmd: ShowPersonByPersonIdCommand): Either<Exception, List<Person>>{
+    fun fetchPersonByPersonIdHandler(cmd: fetchPersonByPersonIdCommand): Either<Exception,Person>{
         return cmd.execute()
     }
 
-    fun showPersonByPersonNameHandler(cmd: ShowPersonByPersonNameCommand): Either<Exception, List<Person>>{
+    fun fetchPersonByPersonNameHandler(cmd: fetchPersonByPersonNameCommand): Either<Exception, Person>{
         return cmd.execute()
     }
 

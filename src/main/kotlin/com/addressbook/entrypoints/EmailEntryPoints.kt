@@ -1,8 +1,15 @@
 package com.addressbook.entrypoints
 
 import arrow.core.Either
-import com.addressbook.*
 import com.addressbook.commands.*
+import com.addressbook.handlers.EmailHandler.addEmailHandler
+import com.addressbook.handlers.EmailHandler.fetchAllEmailHandler
+import com.addressbook.handlers.EmailHandler.fetchEmailByPersonIdHandler
+import com.addressbook.handlers.EmailHandler.fetchEmailByPersonNameHandler
+import com.addressbook.handlers.EmailHandler.removeEmailByEmailIdHandler
+import com.addressbook.handlers.EmailHandler.removeEmailByPersonIdHandler
+import com.addressbook.handlers.EmailHandler.updateEmailHandler
+import com.addressbook.models.*
 import com.addressbook.requests.AddEmailRequest
 import com.addressbook.requests.UpdateEmailRequest
 
@@ -12,7 +19,7 @@ fun addEmailEntryPoint(
 ): Either<Exception, Email> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = AddEmailCommand(cmdCtx,req)
-    return cmd.execute()
+    return addEmailHandler(cmd)
 }
 
 fun updateEmailEntryPoint(
@@ -21,7 +28,7 @@ fun updateEmailEntryPoint(
 ): Either<Exception, Email> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = UpdateEmailCommand(cmdCtx,req)
-    return cmd.execute()
+    return updateEmailHandler(cmd)
 }
 
 
@@ -31,7 +38,7 @@ fun removeEmailByPersonIdEntryPoint(
 ): Either<Exception,String>{
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemoveEmailByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    return removeEmailByPersonIdHandler(cmd)
 }
 
 
@@ -41,31 +48,31 @@ fun removeEmailByEmailIdEntryPoint(
 ): Either<Exception,String>{
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemoveEmailByEmailIdCommand(cmdCtx,emailId)
-    return cmd.execute()
+    return removeEmailByEmailIdHandler(cmd)
 }
 
-fun listAllEmailEntryPoint(
+fun fetchAllEmailEntryPoint(
     ac: AppContext,
-): Either<Exception,Any>{
+): Either<Exception,List<Email>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ListAllEmailCommand(cmdCtx)
-    return cmd.execute()
+    val cmd = fetchAllEmailCommand(cmdCtx)
+    return fetchAllEmailHandler(cmd)
 }
 
-fun showEmailByPersonIdEntryPoint(
+fun fetchEmailByPersonIdEntryPoint(
     ac: AppContext,
     personId: PersonId
-): Either<Exception,Any>{
+): Either<Exception,List<Email>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowEmailByPersonIdCommand(cmdCtx,personId)
-    return cmd.execute()
+    val cmd = fetchEmailByPersonIdCommand(cmdCtx,personId)
+    return fetchEmailByPersonIdHandler(cmd)
 }
 
-fun showEmailByPersonNameEntryPoint(
+fun fetchEmailByPersonNameEntryPoint(
     ac: AppContext,
     personName: String,
-): Either<Exception,Any>{
+): Either<Exception,List<Email>>{
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowEmailByPersonNameCommand(cmdCtx,personName)
-    return cmd.execute()
+    val cmd = fetchEmailByPersonNameCommand(cmdCtx,personName)
+    return fetchEmailByPersonNameHandler(cmd)
 }

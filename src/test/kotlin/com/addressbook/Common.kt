@@ -29,9 +29,9 @@ val schema = listOf<Table>(
 
 internal fun resetDatabase() {
     transaction {
-        schema.reversed().forEach{
-            SchemaUtils.drop(it)
-        }
+//        schema.reversed().forEach{
+//            SchemaUtils.drop(it)
+//        }
 
         schema.forEach {
             SchemaUtils.create(it)

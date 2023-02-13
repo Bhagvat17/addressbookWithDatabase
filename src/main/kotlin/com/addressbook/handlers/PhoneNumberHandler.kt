@@ -1,7 +1,7 @@
 package com.addressbook.handlers
 
 import arrow.core.Either
-import com.addressbook.PhoneNumber
+import com.addressbook.models.PhoneNumber
 import com.addressbook.commands.*
 
 object PhoneNumberHandler{
@@ -13,23 +13,23 @@ object PhoneNumberHandler{
         return cmd.execute()
     }
 
-    fun removePhoneNumberByPersonIdHandler(cmd: RemovePhoneNumberByPersonIdCommand): Either<Exception, Any> {
+    fun removePhoneNumberByPersonIdHandler(cmd: RemovePhoneNumberByPersonIdCommand): Either<Exception, String> {
         return cmd.execute()
     }
 
-    fun removePhoneNumberByPhoneNumberIdHandler(cmd: RemovePhoneNumberByPhoneNumberIdCommand): Either<Exception, Any> {
+    fun removePhoneNumberByPhoneNumberIdHandler(cmd: RemovePhoneNumberByPhoneNumberIdCommand): Either<Exception, String> {
         return cmd.execute()
     }
 
-    fun listAllPhoneNumberEntryPoint(cmd: ListAllPhoneNumberCommand): Either<Exception, Any> {
+    fun fetchAllPhoneNumberHandler(cmd: fetchAllPhoneNumberCommand): Either<Exception, List<PhoneNumber>> {
         return cmd.execute()
     }
 
-    fun showPhoneNumberByPersonIdHandler(cmd: ShowPhoneNumberByPersonIdCommand): Either<Exception, Any> {
+    fun fetchPhoneNumberByPersonIdHandler(cmd: fetchPhoneNumberByPersonIdCommand): Either<Exception, List<PhoneNumber>> {
         return cmd.execute()
     }
 
-    fun showPhoneNumberByPersonName(cmd: ShowPhoneNumberByPersonNameCommand): Either<Exception, Any> {
+    fun fetchPhoneNumberByPersonNameHandler(cmd: fetchPhoneNumberByPersonNameCommand): Either<Exception, List<PhoneNumber>> {
         return cmd.execute()
     }
 }

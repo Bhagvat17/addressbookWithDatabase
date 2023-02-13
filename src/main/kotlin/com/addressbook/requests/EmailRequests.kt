@@ -1,7 +1,7 @@
 package com.addressbook.requests
 
-import com.addressbook.EmailId
-import com.addressbook.PersonId
+import com.addressbook.models.EmailId
+import com.addressbook.models.PersonId
 
 enum class EmailType {
     Home,
@@ -10,13 +10,13 @@ enum class EmailType {
 
 data class AddEmailRequest(
     val personId: PersonId,
-    val emailType: EmailType,
+    val emailType: String,
     val emailAddress: String,
     )
 
 data class UpdateEmailRequest(
     val emailId: EmailId,
     val personId: PersonId,
-    val emailType: EmailType,
+    val emailType: String,
     val emailAddress: String,
 )

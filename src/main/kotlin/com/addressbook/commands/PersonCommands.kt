@@ -1,12 +1,12 @@
 package com.addressbook.commands
 
 import arrow.core.Either
-import com.addressbook.CommandContext
-import com.addressbook.Person
-import com.addressbook.PersonId
+import com.addressbook.models.CommandContext
+import com.addressbook.models.Person
+import com.addressbook.models.PersonId
 import com.addressbook.requests.AddPersonRequest
 import com.addressbook.requests.UpdatePersonRequest
-import com.addressbook.storages.PersonDB
+import com.addressbook.repos.PersonRepo
 import java.util.*
 
 
@@ -32,7 +32,7 @@ class AddPersonCommand(
     val cmdCtx: CommandContext,
     private val request: AddPersonRequest
 ): Command {
-    override fun execute(): Either<Exception, Person> = PersonDB.addPerson(request.toPerson())
+    override fun execute(): Either<Exception, Person> = PersonRepo.addPerson(request.toPerson())
 }
 
 
@@ -40,7 +40,7 @@ class UpdatePersonCommand(
     val cmdCtx: CommandContext,
     private val request: UpdatePersonRequest
 ) : Command {
-    override fun execute(): Either<Exception,Person> = PersonDB.updatePerson(request.toPerson())
+    override fun execute(): Either<Exception, Person> = PersonRepo.updatePerson(request.toPerson())
 }
 
 
@@ -49,31 +49,31 @@ class RemovePersonCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Either<Exception,Any> = PersonDB.removePerson(personId)
+    override fun execute(): Either<Exception,String> = PersonRepo.removePerson(personId)
 }
 
-class ListAllPersonCommand(
+class fetchAllPersonCommand(
     val cmdCtx: CommandContext,
 ): Command{
     override fun execute(): Either<Exception, List<Person>> {
-        return PersonDB.listAllPerson()
+        return PersonRepo.fetchAllPerson()
     }
 }
 
-class ShowPersonByPersonIdCommand(
+class fetchPersonByPersonIdCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Either<Exception, List<Person>> {
-        return PersonDB.showPersonByPersonId(personId)
+    override fun execute(): Either<Exception, Person> {
+        return PersonRepo.fetchPersonByPersonId(personId)
     }
 }
 
-class ShowPersonByPersonNameCommand(
+class fetchPersonByPersonNameCommand(
     val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Either<Exception, List<Person>> {
-        return PersonDB.showPersonByPersonName(personName)
+    override fun execute(): Either<Exception,Person> {
+        return PersonRepo.fetchPersonByPersonName(personName)
     }
 }

@@ -1,7 +1,7 @@
 package com.addressbook.requests
 
-import com.addressbook.PersonId
-import com.addressbook.PhoneNumberId
+import com.addressbook.models.PersonId
+import com.addressbook.models.PhoneNumberId
 
 enum class PhoneNumberType {
     Home,
@@ -10,13 +10,13 @@ enum class PhoneNumberType {
 
 data class AddPhoneNumberRequest(
     val personId: PersonId,
-    val phoneNumberType: PhoneNumberType,
+    val phoneNumberType: String,
     val phone: String,
     )
 
 data class UpdatePhoneNumberRequest(
     val phoneNumberId: PhoneNumberId,
     val personId: PersonId,
-    val phoneNumberType: PhoneNumberType,
+    val phoneNumberType: String,
     val phone: String,
 )

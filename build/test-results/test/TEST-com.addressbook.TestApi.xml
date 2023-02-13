@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.addressbook.TestApi" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-08T06:47:10" hostname="bhagvatj-ThinkPad-E14-Gen-4" time="1.273">
+  <properties/>
+  <testcase name="delete person test()" classname="com.addressbook.TestApi" time="1.273"/>
+  <system-out><![CDATA[2023-02-08 12:17:10.066 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - HikariPool-1 - configuration:
+2023-02-08 12:17:10.082 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+2023-02-08 12:17:10.083 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - autoCommit......................false
+2023-02-08 12:17:10.083 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - catalog.........................none
+2023-02-08 12:17:10.084 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - connectionInitSql...............none
+2023-02-08 12:17:10.084 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - connectionTestQuery.............none
+2023-02-08 12:17:10.086 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+2023-02-08 12:17:10.087 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - dataSource......................none
+2023-02-08 12:17:10.087 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceClassName.............none
+2023-02-08 12:17:10.087 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................none
+2023-02-08 12:17:10.088 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+2023-02-08 12:17:10.089 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - driverClassName.................none
+2023-02-08 12:17:10.089 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - exceptionOverrideClassName......none
+2023-02-08 12:17:10.089 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+2023-02-08 12:17:10.090 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............none
+2023-02-08 12:17:10.090 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+2023-02-08 12:17:10.091 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - initializationFailTimeout.......1
+2023-02-08 12:17:10.091 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+2023-02-08 12:17:10.091 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - jdbcUrl.........................jdbc:mysql://localhost:3306/addressBookDB
+2023-02-08 12:17:10.092 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - keepaliveTime...................0
+2023-02-08 12:17:10.092 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+2023-02-08 12:17:10.093 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+2023-02-08 12:17:10.093 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - maximumPoolSize.................5
+2023-02-08 12:17:10.093 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - metricRegistry..................none
+2023-02-08 12:17:10.094 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........none
+2023-02-08 12:17:10.094 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - minimumIdle.....................5
+2023-02-08 12:17:10.095 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - password........................<masked>
+2023-02-08 12:17:10.098 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - poolName........................"HikariPool-1"
+2023-02-08 12:17:10.099 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - readOnly........................false
+2023-02-08 12:17:10.099 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+2023-02-08 12:17:10.100 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - scheduledExecutor...............none
+2023-02-08 12:17:10.100 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - schema..........................none
+2023-02-08 12:17:10.100 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - threadFactory...................internal
+2023-02-08 12:17:10.101 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - transactionIsolation............default
+2023-02-08 12:17:10.101 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - username........................"bhagvat"
+2023-02-08 12:17:10.101 [Test worker] DEBUG com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+2023-02-08 12:17:10.101 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-02-08 12:17:10.128 [Test worker] DEBUG c.z.hikari.util.DriverDataSource - Loaded driver with class name com.mysql.cj.jdbc.Driver for jdbcUrl=jdbc:mysql://localhost:3306/addressBookDB
+2023-02-08 12:17:10.623 [Test worker] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@62df0ff3
+2023-02-08 12:17:10.635 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-02-08 12:17:10.658 [Test worker] DEBUG c.zaxxer.hikari.pool.ProxyConnection - HikariPool-1 - Executed rollback on connection com.mysql.cj.jdbc.ConnectionImpl@62df0ff3 due to dirty commit state on close().
+2023-02-08 12:17:10.736 [HikariPool-1 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2023-02-08 12:17:10.804 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ae44b29
+2023-02-08 12:17:10.877 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4bd94112
+2023-02-08 12:17:10.940 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7a582c8a
+2023-02-08 12:17:10.996 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2bf6be5d
+2023-02-08 12:17:11.007 [HikariPool-1 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=5, active=0, idle=5, waiting=0)
+2023-02-08 12:17:11.077 [Test worker @coroutine#1] TRACE io.ktor.client.plugins.HttpPlainText - Adding Accept-Charset=UTF-8 to http:///persons/e041824f-3a4a-4c57-955d-724059c0f757
+2023-02-08 12:17:11.217 [DefaultDispatcher-worker-1 @call-context#2] INFO  ktor.test - No ktor.deployment.watch patterns specified, automatic reload is not active.
+2023-02-08 12:17:11.868 [DefaultDispatcher-worker-1 @call-context#2] INFO  ktor.test - Application started in 0.67 seconds.
+2023-02-08 12:17:11.920 [DefaultDispatcher-worker-1 @request#2] TRACE io.ktor.routing.Routing - Trace for [persons, e041824f-3a4a-4c57-955d-724059c0f757]
+/, segment:0 -> SUCCESS @ /
+  /persons, segment:1 -> SUCCESS @ /persons
+    /persons/(method:GET), segment:1 -> FAILURE "Selector didn't match" @ /persons/(method:GET)
+    /persons/{personName}, segment:2 -> SUCCESS; Parameters [personName=[e041824f-3a4a-4c57-955d-724059c0f757]] @ /persons/{personName}
+      /persons/{personName}/(method:GET), segment:2 -> FAILURE "Selector didn't match" @ /persons/{personName}/(method:GET)
+    /persons/(method:POST), segment:1 -> FAILURE "Selector didn't match" @ /persons/(method:POST)
+    /persons/{personId}, segment:2 -> SUCCESS; Parameters [personId=[e041824f-3a4a-4c57-955d-724059c0f757]] @ /persons/{personId}
+      /persons/{personId}/(method:DELETE), segment:2 -> SUCCESS @ /persons/{personId}/(method:DELETE)
+    /persons/(method:PUT), segment:1 -> FAILURE "Selector didn't match" @ /persons/(method:PUT)
+  /emails, segment:0 -> FAILURE "Selector didn't match" @ /emails
+  /phones, segment:0 -> FAILURE "Selector didn't match" @ /phones
+  /addresses, segment:0 -> FAILURE "Selector didn't match" @ /addresses
+  /groups, segment:0 -> FAILURE "Selector didn't match" @ /groups
+  /groupPersons, segment:0 -> FAILURE "Selector didn't match" @ /groupPersons
+Matched routes:
+  "" -> "persons" -> "{personId}" -> "(method:DELETE)"
+Route resolve result:
+  SUCCESS; Parameters [personId=[e041824f-3a4a-4c57-955d-724059c0f757]] @ /persons/{personId}/(method:DELETE)
+2023-02-08 12:17:11.927 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - HikariPool-2 - configuration:
+2023-02-08 12:17:11.929 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+2023-02-08 12:17:11.930 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - autoCommit......................false
+2023-02-08 12:17:11.930 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - catalog.........................none
+2023-02-08 12:17:11.930 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - connectionInitSql...............none
+2023-02-08 12:17:11.930 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - connectionTestQuery.............none
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - dataSource......................none
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceClassName.............none
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................none
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+2023-02-08 12:17:11.931 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - driverClassName.................none
+2023-02-08 12:17:11.932 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - exceptionOverrideClassName......none
+2023-02-08 12:17:11.932 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+2023-02-08 12:17:11.932 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............none
+2023-02-08 12:17:11.932 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+2023-02-08 12:17:11.932 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - initializationFailTimeout.......1
+2023-02-08 12:17:11.933 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+2023-02-08 12:17:11.933 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - jdbcUrl.........................jdbc:mysql://localhost:3306/addressBookDB
+2023-02-08 12:17:11.933 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - keepaliveTime...................0
+2023-02-08 12:17:11.933 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+2023-02-08 12:17:11.933 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - maximumPoolSize.................5
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - metricRegistry..................none
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........none
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - minimumIdle.....................5
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - password........................<masked>
+2023-02-08 12:17:11.934 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - poolName........................"HikariPool-2"
+2023-02-08 12:17:11.935 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - readOnly........................false
+2023-02-08 12:17:11.935 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+2023-02-08 12:17:11.935 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - scheduledExecutor...............none
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - schema..........................none
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - threadFactory...................internal
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - transactionIsolation............default
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - username........................"bhagvat"
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] DEBUG com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+2023-02-08 12:17:11.936 [DefaultDispatcher-worker-1 @request#2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2023-02-08 12:17:11.937 [DefaultDispatcher-worker-1 @request#2] DEBUG c.z.hikari.util.DriverDataSource - Loaded driver with class name com.mysql.cj.jdbc.Driver for jdbcUrl=jdbc:mysql://localhost:3306/addressBookDB
+2023-02-08 12:17:11.979 [DefaultDispatcher-worker-1 @request#2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@704ffa78
+2023-02-08 12:17:11.980 [DefaultDispatcher-worker-1 @request#2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2023-02-08 12:17:11.981 [DefaultDispatcher-worker-1 @request#2] DEBUG c.zaxxer.hikari.pool.ProxyConnection - HikariPool-2 - Executed rollback on connection com.mysql.cj.jdbc.ConnectionImpl@704ffa78 due to dirty commit state on close().
+2023-02-08 12:17:12.020 [DefaultDispatcher-worker-1 @request#2] DEBUG Exposed - DELETE FROM phone_numbers WHERE phone_numbers.person_id = 'e041824f-3a4a-4c57-955d-724059c0f757'
+2023-02-08 12:17:12.023 [DefaultDispatcher-worker-1 @request#2] DEBUG Exposed - DELETE FROM emails WHERE emails.person_id = 'e041824f-3a4a-4c57-955d-724059c0f757'
+2023-02-08 12:17:12.028 [DefaultDispatcher-worker-1 @request#2] DEBUG Exposed - DELETE FROM addresses WHERE addresses.person_id = 'e041824f-3a4a-4c57-955d-724059c0f757'
+2023-02-08 12:17:12.033 [DefaultDispatcher-worker-1 @request#2] DEBUG Exposed - DELETE FROM group_person_associations WHERE group_person_associations.person_id = 'e041824f-3a4a-4c57-955d-724059c0f757'
+2023-02-08 12:17:12.038 [DefaultDispatcher-worker-1 @request#2] DEBUG Exposed - DELETE FROM persons WHERE persons.person_id = 'e041824f-3a4a-4c57-955d-724059c0f757'
+2023-02-08 12:17:12.054 [DefaultDispatcher-worker-1 @request#2] TRACE i.k.s.p.c.ContentNegotiation - Skipping because body is already converted.
+2023-02-08 12:17:12.080 [HikariPool-2 housekeeper] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Pool stats (total=1, active=0, idle=1, waiting=0)
+2023-02-08 12:17:12.096 [Test worker @coroutine#1] TRACE i.k.client.plugins.HttpCallValidator - Validating response for request http://localhost/persons/e041824f-3a4a-4c57-955d-724059c0f757
+2023-02-08 12:17:12.096 [Test worker @coroutine#1] TRACE i.k.c.p.DefaultResponseValidation - Skipping default response validation for http://localhost/persons/e041824f-3a4a-4c57-955d-724059c0f757
+2023-02-08 12:17:12.120 [Test worker @coroutine#1] TRACE i.k.c.plugins.defaultTransformers - Transformed with default transformers response body for http://localhost/persons/e041824f-3a4a-4c57-955d-724059c0f757 to class io.ktor.utils.io.core.Input
+Person with personID e041824f-3a4a-4c57-955d-724059c0f757 deleted successfully
+2023-02-08 12:17:12.131 [HikariPool-2 connection adder] DEBUG com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3b6c9049
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

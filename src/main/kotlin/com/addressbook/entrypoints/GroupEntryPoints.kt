@@ -1,8 +1,17 @@
 package com.addressbook.entrypoints
 
 import arrow.core.Either
-import com.addressbook.*
 import com.addressbook.commands.*
+import com.addressbook.handlers.GroupHandler.addGroupHandler
+import com.addressbook.handlers.GroupHandler.connectGroupsWithPersonHandler
+import com.addressbook.handlers.GroupHandler.connectPersonsWithGroupHandler
+import com.addressbook.handlers.GroupHandler.fetchAllGroupHandler
+import com.addressbook.handlers.GroupHandler.fetchGroupsOfPersonHandler
+import com.addressbook.handlers.GroupHandler.fetchPersonsOfGroupHandler
+import com.addressbook.handlers.GroupHandler.removeGroupHandler
+import com.addressbook.handlers.GroupHandler.removePersonFromGroupHandler
+import com.addressbook.handlers.GroupHandler.updateGroupHandler
+import com.addressbook.models.*
 import com.addressbook.requests.*
 
 fun addGroupEntryPoint(
@@ -11,71 +20,80 @@ fun addGroupEntryPoint(
 ): Either<Exception, Group> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = AddGroupCommand(cmdCtx,req)
-    return cmd.execute()
+    return addGroupHandler(cmd)
+}
+
+fun updateGroupEntryPoint(
+    ac: AppContext,
+    req: UpdateGroupRequest
+): Either<Exception, Group> {
+    val cmdCtx= CommandContext(ac.db)
+    val cmd = UpdateGroupCommand(cmdCtx,req)
+    return updateGroupHandler(cmd)
 }
 
 fun removeGroupEntryPoint(
     ac: AppContext,
     groupId: GroupId
-): Either<Exception, Any> {
+): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = RemoveGroupCommand(cmdCtx,groupId)
-    return cmd.execute()
+    return removeGroupHandler(cmd)
 }
 
 fun removePersonFromGroupEntryPoint(
     ac: AppContext,
     groupId: GroupId,
-    personId: PersonId
-): Either<Exception, Any> {
+    personIds: List<PersonId>
+): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = RemovePersonFromGroupCommand(cmdCtx,groupId,personId)
-    return cmd.execute()
+    val cmd = RemovePersonFromGroupCommand(cmdCtx,groupId,personIds)
+    return removePersonFromGroupHandler(cmd)
 }
 
 fun connectPersonsWithGroupEntryPoint(
     ac: AppContext,
     groupId: GroupId,
     personIds: List<PersonId>
-): Either<Exception, Any> {
+): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = ConnectPersonsWithGroupCommand(cmdCtx,groupId,personIds)
-    return cmd.execute()
+    return connectPersonsWithGroupHandler(cmd)
 }
 
 fun connectGroupsWithPersonEntryPoint(
     ac: AppContext,
     personId: PersonId,
     groupIds: List<GroupId>
-): Either<Exception, Any> {
+): Either<Exception, String> {
     val cmdCtx= CommandContext(ac.db)
     val cmd = ConnectGroupsWithPersonCommand(cmdCtx,personId, groupIds)
-    return cmd.execute()
+    return connectGroupsWithPersonHandler(cmd)
 }
 
-fun listAllGroupsEntryPoint(
+fun fetchAllGroupEntryPoint(
     ac: AppContext
-): Either<Exception, Any> {
+): Either<Exception, List<Group>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ListAllGroupsCommand(cmdCtx)
-    return cmd.execute()
+    val cmd = fetchAllGroupCommand(cmdCtx)
+    return fetchAllGroupHandler(cmd)
 }
 
-fun showPersonsOfGroupEntryPoint(
+fun fetchPersonsOfGroupEntryPoint(
     ac: AppContext,
     groupId: GroupId
-): Either<Exception, Any> {
+): Either<Exception, List<Person>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowPersonsOfGroupCommand(cmdCtx,groupId)
-    return cmd.execute()
+    val cmd = fetchPersonsOfGroupCommand(cmdCtx,groupId)
+    return fetchPersonsOfGroupHandler(cmd)
 }
 
-fun showGroupsOfPersonEntryPoint(
+fun fetchGroupsOfPersonEntryPoint(
     ac: AppContext,
     personId: PersonId
-): Either<Exception, Any> {
+): Either<Exception, List<Group>> {
     val cmdCtx= CommandContext(ac.db)
-    val cmd = ShowGroupsOfPersonCommand(cmdCtx,personId)
-    return cmd.execute()
+    val cmd = fetchGroupsOfPersonCommand(cmdCtx,personId)
+    return fetchGroupsOfPersonHandler(cmd)
 }
 

@@ -1,5 +1,9 @@
 package com.addressbook
 
+import com.addressbook.models.AddressId
+import com.addressbook.models.EmailId
+import com.addressbook.models.PersonId
+import com.addressbook.models.PhoneNumberId
 import com.addressbook.requests.*
 
 
@@ -44,7 +48,7 @@ fun getPersonUpdateRequest2(
 
 fun getAddressCreateRequest(
     personId: PersonId,
-    addressType: AddressType = AddressType.Home,
+    addressType: String = "Home",
     addressLine: String = "Baroda",
 ) =
     AddAddressRequest(
@@ -55,7 +59,7 @@ fun getAddressCreateRequest(
 
 fun getAddressCreateRequest2(
     personId: PersonId,
-    addressType: AddressType = AddressType.Home,
+    addressType: String = "Home",
     addressLine: String = "Surat",
 ) =
     AddAddressRequest(
@@ -67,7 +71,7 @@ fun getAddressCreateRequest2(
 fun getAddressUpdateRequest(
     addressId: AddressId,
     personId: PersonId,
-    addressType: AddressType = AddressType.Home,
+    addressType: String = "Home",
     addressLine: String = "Baroda_Updated"
 )
         =
@@ -80,7 +84,7 @@ fun getAddressUpdateRequest(
 
 fun getPhoneNumberCreateRequest(
     personId: PersonId,
-    phoneNumberType: PhoneNumberType = PhoneNumberType.Home,
+    phoneNumberType: String = "Home",
     phone: String = "23423"
 ) =
     AddPhoneNumberRequest(
@@ -92,7 +96,7 @@ fun getPhoneNumberCreateRequest(
 fun getPhoneNumberUpdateRequest(
     phoneNumberId: PhoneNumberId,
     personId: PersonId,
-    phoneNumberType: PhoneNumberType = PhoneNumberType.Home,
+    phoneNumberType: String = "Home",
     phone: String = "23423u"
 )
         =
@@ -105,7 +109,7 @@ fun getPhoneNumberUpdateRequest(
 
 fun getEmailCreateRequest(
     personId: PersonId,
-    emailType: EmailType = EmailType.Home,
+    emailType: String = "Home",
     emailAddress: String = "abc@email.com",
 ) =
     AddEmailRequest(
@@ -117,7 +121,7 @@ fun getEmailCreateRequest(
 fun getEmailUpdateRequest(
     emailId: EmailId,
     personId: PersonId,
-    emailType: EmailType = EmailType.Home,
+    emailType: String = "Home",
     emailAddress: String = "abc@update.com"
 )
         =

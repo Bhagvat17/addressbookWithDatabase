@@ -1,13 +1,13 @@
 package com.addressbook.commands
 
 import arrow.core.Either
-import com.addressbook.CommandContext
-import com.addressbook.Email
-import com.addressbook.EmailId
-import com.addressbook.PersonId
+import com.addressbook.models.CommandContext
+import com.addressbook.models.Email
+import com.addressbook.models.EmailId
+import com.addressbook.models.PersonId
 import com.addressbook.requests.AddEmailRequest
 import com.addressbook.requests.UpdateEmailRequest
-import com.addressbook.storages.EmailDB
+import com.addressbook.repos.EmailRepo
 import java.util.*
 
 fun AddEmailRequest.toEmail() =
@@ -30,14 +30,14 @@ class AddEmailCommand(
     val cmdCtx: CommandContext,
     private val request: AddEmailRequest
 ): Command {
-    override fun execute(): Either<Exception, Email> = EmailDB.addEmail(request.toEmail())
+    override fun execute(): Either<Exception, Email> = EmailRepo.addEmail(request.toEmail())
 }
 
 class UpdateEmailCommand(
     val cmdCtx: CommandContext,
     private val request: UpdateEmailRequest
 ) : Command {
-    override fun execute(): Either<Exception, Email> = EmailDB.updateEmail(request.toEmail())
+    override fun execute(): Either<Exception, Email> = EmailRepo.updateEmail(request.toEmail())
 
 }
 
@@ -45,32 +45,32 @@ class RemoveEmailByPersonIdCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId,
 ) : Command {
-    override fun execute(): Either<Exception,String> = EmailDB.removeEmailByPersonId(personId)
+    override fun execute(): Either<Exception,String> = EmailRepo.removeEmailByPersonId(personId)
 }
 
 class RemoveEmailByEmailIdCommand(
     val cmdCtx: CommandContext,
     private val emailId: EmailId,
 ) : Command {
-    override fun execute(): Either<Exception,String> = EmailDB.removeEmailByEmailId(emailId)
+    override fun execute(): Either<Exception,String> = EmailRepo.removeEmailByEmailId(emailId)
 }
 
-class ListAllEmailCommand(
+class fetchAllEmailCommand(
     val cmdCtx: CommandContext,
 ): Command{
-    override fun execute(): Either<Exception,Any> = EmailDB.listAllEmail()
+    override fun execute(): Either<Exception,List<Email>> = EmailRepo.fetchAllEmail()
 }
 
-class ShowEmailByPersonIdCommand(
+class fetchEmailByPersonIdCommand(
     val cmdCtx: CommandContext,
     private val personId: PersonId
 ): Command{
-    override fun execute(): Either<Exception,Any> = EmailDB.showEmailByPersonId(personId)
+    override fun execute(): Either<Exception,List<Email>> = EmailRepo.fetchEmailByPersonId(personId)
 }
 
-class ShowEmailByPersonNameCommand(
+class fetchEmailByPersonNameCommand(
     val cmdCtx: CommandContext,
     private val personName: String
 ): Command{
-    override fun execute(): Either<Exception,Any> = EmailDB.showEmailByPersonName(personName)
+    override fun execute(): Either<Exception,List<Email>> = EmailRepo.fetchEmailByPersonName(personName)
 }

@@ -16,7 +16,8 @@ object Persons : Table("persons") {
 object PhoneNumbers : Table("phone_numbers") {
     val phoneNumberId = uuid("phone_number_id").autoGenerate()
     val personId = (uuid("person_id") references Persons.personId).index()
-    val phoneNumberType = enumerationByName<PhoneNumberType>("type",10)
+//    val phoneNumberType = enumerationByName<PhoneNumberType>("type",10)
+    val phoneNumberType = varchar("phone_number_type", length = 10)
     val phone = varchar("phone_number", length = 12)
 
     override val primaryKey = PrimaryKey(phoneNumberId, name = "PK_PhoneNumber_ID")
@@ -25,8 +26,10 @@ object PhoneNumbers : Table("phone_numbers") {
 object Emails : Table("emails") {
     val emailId = uuid("email_id").autoGenerate()
     val personId = (uuid("person_id") references Persons.personId).index()
-    val emailType = enumerationByName<EmailType>("type",10)
+//    val emailType = enumerationByName<EmailType>("type",10)
+    val emailType = varchar("email_type", length = 10)
     val emailAddress = varchar("email_address", length = 100)
+
 
     override val primaryKey = PrimaryKey(emailId, name = "PK_Email_ID")
 }
@@ -34,7 +37,8 @@ object Emails : Table("emails") {
 object Addresses : Table("addresses") {
     val addressId = uuid("address_id").autoGenerate()
     val personId = (uuid("person_id") references Persons.personId).index()
-    val addressType =   enumerationByName<AddressType>("type",10)
+//    val addressType =   enumerationByName<AddressType>("type",10)
+    val addressType = varchar("address_type", length = 10)
     val addressLine = varchar("address_detail", length = 100)
 
     override val primaryKey = PrimaryKey(addressId, name = "PK_Address_ID")
